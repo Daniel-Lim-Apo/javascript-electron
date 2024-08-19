@@ -43,13 +43,13 @@ npm install @babel/preset-react @babel/preset-env babel-loader
 ### `webpack.config.js`
 
 ```javascript
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  entry: './src/renderer.js',
+  entry: "./src/renderer.js",
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
   },
   module: {
     rules: [
@@ -57,15 +57,15 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
         },
       },
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: [".js", ".jsx"],
   },
-  devtool: 'source-map',
+  devtool: "source-map",
 };
 ```
 
@@ -82,24 +82,24 @@ module.exports = {
 ### `src/main.js`
 
 ```javascript
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
+const { app, BrowserWindow } = require("electron");
+const path = require("path");
 
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, "preload.js"),
       nodeIntegration: true,
       contextIsolation: false,
     },
   });
 
-  win.loadFile('public/index.html');
+  win.loadFile("public/index.html");
 }
 
-app.on('ready', createWindow);
+app.on("ready", createWindow);
 ```
 
 ## 5. Creating the React Frontend
@@ -124,18 +124,18 @@ app.on('ready', createWindow);
 ### `src/renderer.js`
 
 ```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 ### `src/App.js`
 
 ```javascript
-import React from 'react';
-import CardGame from './CardGame';
+import React from "react";
+import CardGame from "./CardGame";
 
 const App = () => (
   <div>
@@ -154,8 +154,8 @@ This component will handle the UI and the logic for the card game.
 ### `src/CardGame.js`
 
 ```javascript
-import React, { useState, useEffect } from 'react';
-import { fetchCardData } from './api';
+import React, { useState, useEffect } from "react";
+import { fetchCardData } from "./api";
 
 const CardGame = () => {
   const [cards, setCards] = useState([]);
@@ -172,20 +172,24 @@ const CardGame = () => {
   return (
     <div>
       <h2>Select a Card</h2>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
         {cards.map((card) => (
           <div
             key={card.id}
             onClick={() => handleCardClick(card)}
             style={{
-              border: '1px solid #000',
-              padding: '20px',
-              margin: '10px',
-              cursor: 'pointer',
+              border: "1px solid #000",
+              padding: "20px",
+              margin: "10px",
+              cursor: "pointer",
             }}
           >
             <p>{card.name}</p>
-            <img src={card.imageUrl} alt={card.name} style={{ width: '100px' }} />
+            <img
+              src={card.imageUrl}
+              alt={card.name}
+              style={{ width: "100px" }}
+            />
           </div>
         ))}
       </div>
@@ -193,7 +197,11 @@ const CardGame = () => {
         <div>
           <h2>Selected Card</h2>
           <p>{selectedCard.name}</p>
-          <img src={selectedCard.imageUrl} alt={selectedCard.name} style={{ width: '200px' }} />
+          <img
+            src={selectedCard.imageUrl}
+            alt={selectedCard.name}
+            style={{ width: "200px" }}
+          />
         </div>
       )}
     </div>
@@ -211,7 +219,9 @@ You can use the Deck of Cards API to fetch card data. Here’s how to implement 
 
 ```javascript
 export const fetchCardData = async () => {
-  const response = await fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=10');
+  const response = await fetch(
+    "https://deckofcardsapi.com/api/deck/new/draw/?count=10"
+  );
   const data = await response.json();
 
   // Transform the data to match the structure used in the CardGame component
@@ -232,6 +242,37 @@ Add the following script to your `package.json`:
 ```json
 "scripts": {
   "start": "webpack && electron ."
+}
+```
+
+Example of a `package.json`:
+
+### `package.json`
+
+```json
+{
+  "name": "electron-react-card-game",
+  "version": "1.0.0",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "webpack && electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@babel/preset-env": "^7.25.3",
+    "@babel/preset-react": "^7.24.7",
+    "babel-loader": "^9.1.3",
+    "electron": "^31.4.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.4"
+  }
 }
 ```
 
