@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Electron Leaflet Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+      #map {
+        height: 100vh;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+      // Initialize the Leaflet map
+      var map = L.map("map").setView([51.505, -0.09], 13);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      var marker = L.marker([51.5, -0.09])
+        .addTo(map)
+        .bindPopup("A pretty CSS3 popup.<br> Easily customizable.")
+        .openPopup();
+
+      var markerAnother = L.marker([51.12, -0.09])
+        .addTo(map)
+        .bindPopup("Another pretty CSS3 popup.<br> Easily customizable.")
+        .openPopup();
+
+      var jaboataoDosQuararapes = L.marker([
+        -8.167796491841042, -34.922073463823054,
+      ])
+        .addTo(map)
+        .bindPopup("Jaboataão <br/> dos guararapes.")
+        .openPopup();
+    </script>
+  </body>
+</html>

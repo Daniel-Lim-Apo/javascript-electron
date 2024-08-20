@@ -1,0 +1,12 @@
+{
+  "name": "electron-leaflet",
+  "version": "1.0.0",
+  "description": "A simple Electron app with Leaflet",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^26.1.0"
+  }
+}
